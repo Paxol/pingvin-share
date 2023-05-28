@@ -6,6 +6,7 @@ import { FileModule } from "src/file/file.module";
 import { ReverseShareModule } from "src/reverseShare/reverseShare.module";
 import { ShareController } from "./share.controller";
 import { ShareService } from "./share.service";
+import { WebhookModule } from "src/webhook/webhook.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ShareService } from "./share.service";
     EmailModule,
     ClamScanModule,
     ReverseShareModule,
+    WebhookModule,
     forwardRef(() => FileModule),
   ],
   controllers: [ShareController],

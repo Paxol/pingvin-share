@@ -14,6 +14,7 @@ import { ShareModule } from "./share/share.module";
 import { UserModule } from "./user/user.module";
 import { ClamScanModule } from "./clamscan/clamscan.module";
 import { ReverseShareModule } from "./reverseShare/reverseShare.module";
+import { WebhookModule } from "./webhook/webhook.module";
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ReverseShareModule } from "./reverseShare/reverseShare.module";
     ConfigModule,
     JobsModule,
     UserModule,
+    WebhookModule,
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 100,

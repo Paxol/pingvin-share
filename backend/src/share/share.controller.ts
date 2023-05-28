@@ -9,6 +9,7 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors
 } from "@nestjs/common";
 import { Throttle } from "@nestjs/throttler";
 import { User } from "@prisma/client";
@@ -25,6 +26,7 @@ import { ShareOwnerGuard } from "./guard/shareOwner.guard";
 import { ShareSecurityGuard } from "./guard/shareSecurity.guard";
 import { ShareTokenSecurity } from "./guard/shareTokenSecurity.guard";
 import { ShareService } from "./share.service";
+import { ShareCreatedInterceptor } from "./interceptor/shareCreated.interceptor";
 @Controller("shares")
 export class ShareController {
   constructor(private shareService: ShareService) {}
@@ -71,6 +73,7 @@ export class ShareController {
   @Post(":id/complete")
   @HttpCode(202)
   @UseGuards(CreateShareGuard, ShareOwnerGuard)
+  @UseInterceptors(ShareCreatedInterceptor)
   async complete(@Param("id") id: string, @Req() request: Request) {
     const { reverse_share_token } = request.cookies;
     return new ShareDTO().from(

@@ -21,6 +21,7 @@ model User {
   refreshTokens RefreshToken[]
   loginTokens   LoginToken[]
   reverseShares ReverseShare[]
+  webhooks      Webhook[]
 
   totpEnabled        Boolean             @default(false)
   totpVerified       Boolean             @default(false)
@@ -143,4 +144,14 @@ model Config {
   order        Int
 
   @@id([name, category])
+}
+
+model Webhook {
+  id String @id @default(uuid())
+
+  event String
+  url   String
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 }
