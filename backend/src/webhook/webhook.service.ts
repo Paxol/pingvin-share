@@ -4,6 +4,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { FiredWebhookDTO } from "./dto/FiredWebhookDTO";
 import { User } from "@prisma/client";
 import { CreateWebhookDTO } from "./dto/CreateWebhookDTO";
+import { catchError } from "rxjs";
 
 @Injectable()
 export class WebhookService {
@@ -26,15 +27,16 @@ export class WebhookService {
       where: { event: dto.event },
     });
 
-    for (const webhook of hooks) {      
+    for (const webhook of hooks) {
       this.httpService
         .post(webhook.url, dto.data ?? undefined, {
           headers: {
             "x-webhook-event": dto.event,
-            "x-webhook-secret": webhook.secret
-          }
+            "x-webhook-secret": webhook.secret,
+          },
         })
-        .subscribe()
+        .pipe(catchError((err, observable) => observable))
+        .subscribe();
     }
   }
 }
