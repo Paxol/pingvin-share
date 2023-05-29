@@ -1,4 +1,8 @@
 import { PickType } from "@nestjs/swagger";
 import { WebhookDTO } from "./WebhookDTO";
 
-export class CreateWebhookDTO extends PickType(WebhookDTO, ["event", "url"] as const) {}
+export class CreateWebhookDTO extends PickType(WebhookDTO, [
+  "event",
+  "url",
+  "secret",
+] as const) {}

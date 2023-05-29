@@ -28,7 +28,11 @@ export class WebhookService {
 
     for (const webhook of hooks) {      
       this.httpService
-        .post(webhook.url, dto.data ?? undefined)
+        .post(webhook.url, dto.data ?? undefined, {
+          headers: {
+            "x-webhook-secret": webhook.secret
+          }
+        })
         .subscribe()
     }
   }

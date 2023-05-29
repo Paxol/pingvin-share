@@ -1,5 +1,5 @@
 import { Expose, Type, plainToClass } from "class-transformer";
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 import { PublicUserDTO } from "src/user/dto/publicUser.dto";
 
 export class WebhookDTO {
@@ -13,6 +13,10 @@ export class WebhookDTO {
   @Expose()
   @IsNotEmpty()
   url: string;
+
+  @Expose()
+  @IsOptional()
+  secret: string | undefined;
 
   @Expose()
   @Type(() => PublicUserDTO)
