@@ -30,6 +30,7 @@ export class WebhookService {
       this.httpService
         .post(webhook.url, dto.data ?? undefined, {
           headers: {
+            "x-webhook-event": dto.event,
             "x-webhook-secret": webhook.secret
           }
         })
